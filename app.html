@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#29234b">
+<title>RupeeRise — Your money. Your goals. Your future.</title>
+<style>
+:root{--ink:#282344;--muted:#77748c;--bg:#f5f3fa;--card:#fff;--purple:#6655c7;--lav:#eeeaff;--green:#16845d;--red:#c34d65;--line:#ebe8f2;--gold:#e5a83e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:760px;margin:auto;min-height:100vh;padding-bottom:88px}.top{background:linear-gradient(135deg,#29234b,#5547a5);color:#fff;padding:26px 20px 24px;border-radius:0 0 26px 26px}.topline{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:800;letter-spacing:.3px;font-size:18px}.brand span{color:#d8ceff}.tag{font-size:11px;background:#ffffff20;padding:6px 10px;border-radius:20px}.hello{font-size:13px;opacity:.8;margin:23px 0 5px}.balance-label{font-size:13px;opacity:.8}.balance{font-size:34px;font-weight:800;margin:4px 0 18px;letter-spacing:-1px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#ffffff16;border:1px solid #ffffff20;border-radius:15px;padding:12px}.stat small{display:block;opacity:.75;font-size:11px}.stat b{display:block;margin-top:5px;font-size:17px}.content{padding:18px 16px}.section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 11px}.section-head h2{font-size:17px;margin:0}.sub{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #30265d08}.metric{font-size:21px;font-weight:800;margin:8px 0 3px}.icon{width:34px;height:34px;border-radius:11px;background:var(--lav);display:grid;place-items:center;font-size:17px}.action{border:0;background:var(--purple);color:#fff;padding:11px 14px;border-radius:12px;font-weight:700}.action.secondary{background:var(--lav);color:var(--purple)}.action.danger{background:#fff0f2;color:var(--red)}.full{width:100%}.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5;padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));}.tabrow{width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.tab{border:0;background:transparent;color:#88839b;font-size:10px;padding:7px 2px;border-radius:12px}.tab span{display:block;font-size:19px;margin-bottom:3px}.tab.active{background:var(--lav);color:var(--purple);font-weight:800}.view{display:none}.view.active{display:block}.field{margin:11px 0}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline-color:var(--purple)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.listitem{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);gap:10px}.listitem:last-child{border:0}.pill{font-size:10px;border-radius:20px;padding:5px 8px;background:var(--lav);color:var(--purple)}.positive{color:var(--green)}.negative{color:var(--red)}.progress{height:9px;background:#efedf5;border-radius:20px;overflow:hidden;margin:10px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,#7968d7,#b09bff);border-radius:20px}.empty{text-align:center;padding:24px 10px;color:var(--muted);font-size:13px}.result{background:var(--lav);border-radius:14px;padding:14px;margin-top:12px}.result b{font-size:22px;display:block;margin-top:4px}.note{font-size:11px;line-height:1.5;color:var(--muted)}.hidden{display:none!important}.toast{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#29234b;color:white;padding:11px 16px;border-radius:20px;font-size:12px;z-index:10;box-shadow:0 8px 25px #0002}.bar{height:8px;border-radius:10px;background:#eeeaf7;overflow:hidden}.bar i{display:block;height:100%;background:var(--purple)}.smallbtn{border:0;background:transparent;color:var(--purple);font-size:12px;font-weight:700;padding:6px}
+@media(min-width:600px){.content{padding:22px}.top{padding:30px 26px}.grid{gap:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="topline"><div class="brand">✦ MONEY <span>MASTER</span></div><div class="tag">PERSONAL FINANCE PLANNER</div></div>
+ <div class="hello" id="greeting">YOUR MONEY SNAPSHOT</div>
+ <div class="balance-label">Estimated monthly balance</div><div class="balance" id="netBalance">₹0</div>
+ <div class="stats">
+  <div class="stat"><small>INCOME THIS MONTH</small><b id="topIncome">₹0</b></div>
+  <div class="stat"><small>EXPENSES THIS MONTH</small><b id="topExpense">₹0</b></div>
+ </div>
+</header>
+<main class="content">
+<section class="view active" id="dashboard">
+ <div class="section-head"><h2>Your overview</h2><span class="sub" id="monthLabel"></span></div>
+ <div class="grid">
+  <div class="card"><div class="icon">💰</div><div class="sub">Savings rate</div><div class="metric" id="savingRate">0%</div><div class="sub">Income left after expenses</div></div>
+  <div class="card"><div class="icon">🎯</div><div class="sub">Active goals</div><div class="metric" id="goalCount">0</div><div class="sub">Goals you're working toward</div></div>
+ </div>
+ <div class="section-head"><h2>Quick actions</h2></div>
+ <div class="grid">
+  <button class="card" onclick="show('transactions')" style="text-align:left;border:1px solid var(--line)"><div class="icon">＋</div><b>Add transaction</b><div class="sub">Record income or spending</div></button>
+  <button class="card" onclick="show('calculators')" style="text-align:left;border:1px solid var(--line)"><div class="icon">🧮</div><b>Calculate EMI</b><div class="sub">Estimate a loan payment</div></button>
+ </div>
+ <div class="section-head"><h2>Recent activity</h2><button class="smallbtn" onclick="show('transactions')">See all →</button></div>
+ <div class="card" id="recentList"><div class="empty">Your transactions will appear here.</div></div>
+ <div class="section-head"><h2>Money tip</h2></div>
+ <div class="card"><b>Give every rupee a purpose.</b><p class="sub">Try recording expenses for 7 days. A clear picture of where your money goes is the first step toward a budget that works.</p></div>
+</section>
+<section class="view" id="transactions">
+ <div class="section-head"><h2>Transactions</h2><span class="sub">Your monthly money log</span></div>
+ <div class="card">
+  <div class="row"><div class="field"><label>Type</label><select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></div><div class="field"><label>Date</label><input id="txDate" type="date"></div></div>
+  <div class="field"><label>Description</label><input id="txDesc" placeholder="e.g. Groceries, salary"></div>
+  <div class="row"><div class="field"><label>Category</label><select id="txCategory"><option>Food</option><option>Home</option><option>Travel</option><option>Bills</option><option>Shopping</option><option>Health</option><option>Salary</option><option>Business</option><option>Other</option></select></div><div class="field"><label>Amount (₹)</label><input id="txAmount" type="number" min="1" placeholder="0"></div></div>
+  <button class="action full" onclick="addTransaction()">＋ Save transaction</button>
+ </div>
+ <div class="section-head"><h2>All activity</h2><button class="smallbtn" onclick="exportCSV()">Export CSV ↓</button></div>
+ <div class="card" id="allTransactions"><div class="empty">No transactions yet. Add your first one above.</div></div>
+</section>
+<section class="view" id="goals">
+ <div class="section-head"><h2>Savings goals</h2><span class="sub">Small steps add up</span></div>
+ <div class="card">
+  <div class="field"><label>Goal name</label><input id="goalName" placeholder="e.g. Emergency fund"></div>
+  <div class="row"><div class="field"><label>Target amount (₹)</label><input id="goalTarget" type="number" min="1" placeholder="100000"></div><div class="field"><label>Already saved (₹)</label><input id="goalSaved" type="number" min="0" placeholder="0"></div></div>
+  <button class="action full" onclick="addGoal()">＋ Add savings goal</button>
+ </div>
+ <div class="section-head"><h2>Your goals</h2></div><div id="goalList"></div>
+ <div class="card" style="margin-top:14px"><b>Build your safety net</b><p class="sub">A common starting point is to work toward 3–6 months of essential expenses. Choose a target that fits your circumstances.</p></div>
+</section>
+<section class="view" id="calculators">
+ <div class="section-head"><h2>Smart calculators</h2><span class="sub">Estimates, not loan offers</span></div>
+ <div class="card">
+  <h3 style="margin:0 0 4px">🏠 Loan EMI calculator</h3><p class="sub">Estimate your monthly payment.</p>
+  <div class="field"><label>Loan amount (₹)</label><input id="loanAmount" type="number" value="3000000" oninput="calcEMI()"></div>
+  <div class="row"><div class="field"><label>Annual interest (%)</label><input id="loanRate" type="number" step=".1" value="8.5" oninput="calcEMI()"></div><div class="field"><label>Tenure (years)</label><input id="loanYears" type="number" value="20" oninput="calcEMI()"></div></div>
+  <div class="result"><span class="sub">Estimated monthly EMI</span><b id="emiResult">₹0</b><span class="sub" id="emiDetail"></span></div>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="margin:0 0 4px">🚀 ₹1 crore goal planner</h3><p class="sub">See the monthly amount needed to reach your target.</p>
+  <div class="field"><label>Target amount (₹)</label><input id="wealthTarget" type="number" value="10000000" oninput="calcWealth()"></div>
+  <div class="row"><div class="field"><label>Current savings (₹)</label><input id="wealthCurrent" type="number" value="0" oninput="calcWealth()"></div><div class="field"><label>Years to reach goal</label><input id="wealthYears" type="number" value="10" oninput="calcWealth()"></div></div>
+  <div class="result"><span class="sub">Monthly saving needed (without investment returns)</span><b id="wealthResult">₹0</b><span class="sub" id="wealthDetail"></span></div>
+  <p class="note">This simple estimate assumes no investment growth, taxes, fees or inflation. Actual outcomes can differ.</p>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="margin:0 0 4px">📊 Budget split guide</h3><p class="sub">A flexible starting framework, not a rule.</p>
+  <div class="listitem"><span>Needs · 50%</span><b id="needAmt">₹0</b></div><div class="bar"><i style="width:50%"></i></div>
+  <div class="listitem"><span>Wants · 30%</span><b id="wantAmt">₹0</b></div><div class="bar"><i style="width:30%"></i></div>
+  <div class="listitem"><span>Savings/debt · 20%</span><b id="saveAmt">₹0</b></div><div class="bar"><i style="width:20%"></i></div>
+  <div class="field"><label>Monthly take-home income (₹)</label><input id="budgetIncome" type="number" placeholder="e.g. 50000" oninput="calcBudget()"></div>
+ </div>
+</section>
+<section class="view" id="settings">
+ <div class="section-head"><h2>Settings & your data</h2></div>
+ <div class="card">
+  <b>Private by design</b><p class="sub">Your entries are stored in this browser on this device. This demo does not send your financial data to a server. Clearing browser data may erase it. Export a backup regularly.</p>
+  <button class="action secondary full" onclick="exportBackup()">Download data backup</button>
+  <div style="height:9px"></div><label class="sub">Restore a JSON backup</label><input type="file" id="restoreFile" accept=".json,application/json" onchange="restoreBackup(event)">
+ </div>
+ <div class="card" style="margin-top:14px">
+  <b>About RupeeRise</b><p class="sub">A simple personal budgeting and goal-planning tool. It is not a bank, investment adviser, lender or tax professional. Calculations are illustrative and should be independently verified before making financial decisions.</p>
+  <p class="note">Version 1.0 · RupeeRise · Everyday money clarity</p>
+ </div>
+ <div class="card" style="margin-top:14px"><b>Start fresh</b><p class="sub">This permanently clears locally saved transactions and goals from this browser.</p><button class="action danger full" onclick="resetData()">Clear all my data</button></div>
+</section>
+</main>
+</div>
+<nav class="tabs"><div class="tabrow">
+ <button class="tab active" data-view="dashboard" onclick="show('dashboard')"><span>⌂</span>Home</button>
+ <button class="tab" data-view="transactions" onclick="show('transactions')"><span>↕</span>Activity</button>
+ <button class="tab" data-view="goals" onclick="show('goals')"><span>◎</span>Goals</button>
+ <button class="tab" data-view="calculators" onclick="show('calculators')"><span>▦</span>Tools</button>
+ <button class="tab" data-view="settings" onclick="show('settings')"><span>⚙</span>Settings</button>
+</div></nav>
+<div id="toast" class="toast hidden"></div>
+<script>
+const KEY='rupeeRise_v1';
+let data={transactions:[],goals:[]};
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(n)||0);
+const today=()=>new Date().toISOString().slice(0,10);
+function load(){try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&Array.isArray(saved.transactions)&&Array.isArray(saved.goals))data=saved}catch(e){}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function toast(s){$('toast').textContent=s;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2200)}
+function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='calculators'){calcEMI();calcWealth();calcBudget()}}
+function addTransaction(){let amount=Number($('txAmount').value),desc=$('txDesc').value.trim();if(!desc||amount<=0||!Number.isFinite(amount)){toast('Enter a description and valid amount.');return}data.transactions.unshift({id:Date.now(),type:$('txType').value,date:$('txDate').value||today(),desc,category:$('txCategory').value,amount});$('txDesc').value='';$('txAmount').value='';save();toast('Transaction saved.')}
+function deleteTx(id){if(confirm('Delete this transaction?')){data.transactions=data.transactions.filter(t=>t.id!==id);save()}}
+function addGoal(){let name=$('goalName').value.trim(),target=Number($('goalTarget').value),saved=Number($('goalSaved').value)||0;if(!name||target<=0||saved<0){toast('Enter a goal name and valid target.');return}data.goals.push({id:Date.now(),name,target,saved:Math.min(saved,target)});$('goalName').value='';$('goalTarget').value='';$('goalSaved').value='';save();toast('Goal added.')}
+function updateGoal(id){let g=data.goals.find(x=>x.id===id);if(!g)return;let v=prompt('How much have you saved in total for '+g.name+'? (₹)',g.saved);if(v===null)return;let n=Number(v);if(!Number.isFinite(n)||n<0){toast('Enter a valid amount.');return}g.saved=Math.min(n,g.target);save()}
+function deleteGoal(id){if(confirm('Delete this goal?')){data.goals=data.goals.filter(g=>g.id!==id);save()}}
+function render(){let m=new Date().toISOString().slice(0,7),monthTx=data.transactions.filter(t=>t.date.slice(0,7)===m),inc=monthTx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0),exp=monthTx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0),net=inc-exp;
+$('monthLabel').textContent=new Date().toLocaleDateString('en-IN',{month:'short',year:'numeric'});$('netBalance').textContent=money(net);$('topIncome').textContent=money(inc);$('topExpense').textContent=money(exp);$('savingRate').textContent=(inc>0?Math.round(net/inc*100):0)+'%';$('goalCount').textContent=data.goals.length;
+const txHTML=(items)=>items.length?items.map(t=>`<div class="listitem"><div style="min-width:0"><b>${esc(t.desc)}</b><div class="sub">${esc(t.category)} · ${esc(t.date)}</div></div><div style="text-align:right;white-space:nowrap"><b class="${t.type==='income'?'positive':'negative'}">${t.type==='income'?'+':'−'}${money(t.amount)}</b><div><button class="smallbtn" onclick="deleteTx(${t.id})">Delete</button></div></div></div>`).join(''):'<div class="empty">No transactions yet. Add your first one above.</div>';
+$('recentList').innerHTML=txHTML(data.transactions.slice(0,4));$('allTransactions').innerHTML=txHTML(data.transactions);
+$('goalList').innerHTML=data.goals.length?data.goals.map(g=>{let p=Math.min(100,Math.round(g.saved/g.target*100));return `<div class="card" style="margin-bottom:10px"><div class="listitem" style="padding-top:0"><b>${esc(g.name)}</b><span class="pill">${p}%</span></div><div class="progress"><i style="width:${p}%"></i></div><div class="listitem"><span class="sub">${money(g.saved)} saved</span><b>${money(g.target)}</b></div><button class="action secondary" onclick="updateGoal(${g.id})">＋ Update savings</button> <button class="smallbtn" onclick="deleteGoal(${g.id})">Delete</button></div>`}).join(''):'<div class="card empty">No goals yet. Add a goal above to track your progress.</div>';
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function calcEMI(){let p=Number($('loanAmount').value),r=Number($('loanRate').value)/1200,n=Number($('loanYears').value)*12;if(p<=0||n<=0||r<0){$('emiResult').textContent='—';$('emiDetail').textContent='Enter valid loan details.';return}let emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);$('emiResult').textContent=money(emi);$('emiDetail').textContent='Total repayment: '+money(emi*n)+' · Estimated interest: '+money(emi*n-p)}
+function calcWealth(){let t=Number($('wealthTarget').value),c=Number($('wealthCurrent').value),y=Number($('wealthYears').value);if(t<=c||y<=0){$('wealthResult').textContent='—';$('wealthDetail').textContent='Target must exceed current savings; enter a valid time.';return}let monthly=(t-c)/(y*12);$('wealthResult').textContent=money(monthly);$('wealthDetail').textContent='Remaining goal: '+money(t-c)+' over '+(y*12)+' months.'}
+function calcBudget(){let n=Number($('budgetIncome').value)||0;$('needAmt').textContent=money(n*.5);$('wantAmt').textContent=money(n*.3);$('saveAmt').textContent=money(n*.2)}
+function download(name,content,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+function exportCSV(){let rows=[['Date','Type','Description','Category','Amount'],...data.transactions.map(t=>[t.date,t.type,t.desc,t.category,t.amount])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');download('rupeerise-transactions.csv',csv,'text/csv');}
+function exportBackup(){download('rupeerise-backup.json',JSON.stringify(data,null,2),'application/json')}
+function restoreBackup(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.transactions)||!Array.isArray(d.goals))throw Error();data=d;save();toast('Backup restored.')}catch(x){toast('That backup file is not valid.')}};r.readAsText(f)}
+function resetData(){if(confirm('Are you sure? This cannot be undone unless you exported a backup.')){data={transactions:[],goals:[]};save();toast('Local data cleared.')}}
+$('txDate').value=today();$('greeting').textContent='YOUR MONEY SNAPSHOT · '+new Date().toLocaleDateString('en-IN',{weekday:'long'});
+load();render();calcEMI();calcWealth();calcBudget();
+</script>
+</body></html>
