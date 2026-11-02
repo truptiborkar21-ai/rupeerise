@@ -1,19 +1,14 @@
-RUPEERISE — FREE PUBLIC DEMO PACKAGE
+RupeeRise — Your money. Your goals. Your future.
 
-Files:
-- index.html: public-facing landing page
-- app.html: mobile-friendly budgeting demo application
+Files
+- index.html: public landing page
+- app.html: mobile-friendly personal finance planner demo
+- README.txt: setup and important product limitations
 
-LOCAL PREVIEW:
-Open index.html in a browser. Tap "Explore free demo" to open the app.
+GitHub Pages deployment
+1. Upload all three files to the root of the public rupeerise repository.
+2. In Settings > Pages choose Deploy from a branch, branch main, folder /(root).
+3. Save and wait for deployment.
 
-PUBLISH:
-Upload both files to the root of a GitHub repository, then enable GitHub Pages
-from Settings > Pages > Deploy from a branch > main > /(root).
-The public address will be shown by GitHub after deployment.
-
-IMPORTANT:
-This is a free demo only. It does not collect payments, verify purchases, provide accounts,
-sync data across devices, or offer cloud backup. App data is stored in the visitor's browser.
-Do not advertise this as a paid product until purchase fulfilment, privacy/terms, support,
-security review and browser/device testing are complete. Add a real business contact email.
+Important demo limitations
+This is an early demo, not a production financial service. Transactions and goals are stored only in local browser storage on this device. There is no user account, cloud sync, payment processing, purchase verification, or backend. Do not enter real sensitive financial data. Do not accept payments until privacy, security, support, legal, and payment workflows are completed and tested.
